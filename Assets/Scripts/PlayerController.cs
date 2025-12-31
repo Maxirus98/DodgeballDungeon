@@ -18,10 +18,10 @@ public class PlayerController : MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal");
 
         //Move the player vertically based on input
-        var vertical = Input.GetAxis("Vertical") ;
+        var vertical = Input.GetAxis("Vertical");
 
         // Movements are relative to camera direction
-        var movement = new Vector3(horizontal , 0, vertical);
+        var movement = new Vector3(horizontal, 0, vertical);
         var appliedMovement = movement.normalized * Time.deltaTime * speed;
 
         if (horizontal != 0 || vertical != 0)
