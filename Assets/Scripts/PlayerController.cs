@@ -5,10 +5,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 5;
     public float rotationSpeed = 10;
     public Camera playerCamera;
+    private Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerCamera = Camera.main;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,5 +35,15 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(appliedMovement, Space.World);
+        animator.SetFloat("Movement", movement.magnitude);
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                Debug.Log("Clicked on: " + hitInfo.collider.gameObject.name);
+            }
+        }
     }
 }
