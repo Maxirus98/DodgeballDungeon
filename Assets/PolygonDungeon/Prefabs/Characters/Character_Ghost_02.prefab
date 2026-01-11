@@ -1983,7 +1983,7 @@ Animator:
   m_GameObject: {fileID: 136988}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7c61a72cf089cb340bc822c2b4b8564d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2011,7 +2011,6 @@ MonoBehaviour:
   rotationSpeed: 10
   initialTargetPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
-  attackRange: 5
   isAttacking: 0
 --- !u!136 &-1686273399741713584
 CapsuleCollider:

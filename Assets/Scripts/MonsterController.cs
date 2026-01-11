@@ -21,6 +21,19 @@ public class MonsterController : MonoBehaviour
 
     private GameObject targetPosSphere;
 
+    /// <summary>
+    /// Added IK support for two handed weapons. Prerequisites: Animator with IK pass enabled.
+    /// Weapons is well placed in the right hand and well placed in the left hand.
+    /// Then add IK so that the left hand follows the movement of the weapon but not the rotation.
+    /// </summary>
+    public bool ikActive = false;
+
+    /// <summary>
+    /// Object for the left hand to grab onto.
+    /// </summary>
+    public Transform leftHandObj = null;
+    private Animator animator;
+
     void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
@@ -40,6 +53,8 @@ public class MonsterController : MonoBehaviour
         targetPosSphere.transform.position = targetPosition;
         targetPosSphere.transform.localScale = Vector3.one * 0.5f;
         targetPosSphere.GetComponent<Renderer>().material.color = Color.green;
+
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -86,6 +101,33 @@ public class MonsterController : MonoBehaviour
             isAttacking = true;
             agent.isStopped = true;
             transform.LookAt(playerTransform);
+        }
+    }
+
+    private void OnAnimatorIK()
+    {
+        if (animator)
+        {
+            //if the IK is active, set the position and rotation directly to the goal.
+            if (ikActive)
+            {
+
+                // Set the right hand target position and rotation, if one has been assigned
+                if (leftHandObj != null)
+                {
+                    // For AvatarIkGoal.LeftHand to be correct, we need to change the position of the hand in the avatar configuration.
+                    animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+                    // TODO: Fix the hand position in the avatar. AvatarIKGoal.LeftHand seems to be offset because the hand's position is at the wrist in the avatar's config..
+                    animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
+                }
+            }
+
+            //if the IK is not active, set the position and rotation of the hand and head back to the original position
+            else
+            {
+                animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
+                animator.SetLookAtWeight(0);
+            }
         }
     }
 
