@@ -31,7 +31,7 @@ public class MonsterController : MonoBehaviour
     /// <summary>
     /// Object for the left hand to grab onto.
     /// </summary>
-    public Transform leftHandObj = null;
+    public Transform leftHandleObj = null;
     private Animator animator;
 
     void Start()
@@ -113,12 +113,11 @@ public class MonsterController : MonoBehaviour
             {
 
                 // Set the right hand target position and rotation, if one has been assigned
-                if (leftHandObj != null)
+                if (leftHandleObj != null)
                 {
-                    // For AvatarIkGoal.LeftHand to be correct, we need to change the position of the hand in the avatar configuration.
                     animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
                     // TODO: Fix the hand position in the avatar. AvatarIKGoal.LeftHand seems to be offset because the hand's position is at the wrist in the avatar's config..
-                    animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
+                    animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandleObj.position);
                 }
             }
 
